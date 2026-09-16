@@ -1,13 +1,36 @@
+import { useMemo, useState } from 'react'
 import { useCountries } from '@/hooks/useCountries'
 import { CountryGrid } from '@/components/CountryGrid'
+import { CountryControls } from '@/components/CountryControls'
 import { Legend } from '@/components/Legend'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Loader } from '@/components/Loader'
 import { ErrorState } from '@/components/ErrorState'
+import { filterAndSortCountries, type SortDirection, type SortKey } from '@/lib/filterSortCountries'
+import type { Continent } from '@/types'
 
 function App() {
     const state = useCountries()
 
+    const [searchQuery, setSearchQuery] = useState('')
+    const [activeContinent, setActiveContinent] = useState<Continent | null>(null)
+    const [sortKey, setSortKey] = useState<SortKey>('name')
+    const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
+
+    const countries = useMemo(() => (state.status === 'success' ? state.data : []), [state])
+
+    const filteredCountries = useMemo(
+        () =>
+            filterAndSortCountries(countries, {
+                searchQuery,
+                activeContinent,
+                sortKey,
+                sortDirection,
+            }),
+        [countries, searchQuery, activeContinent, sortKey, sortDirection]
+    )
+
+    // ...rest unchanged
     if (state.status === 'loading') {
         return <Loader />
     }
@@ -23,11 +46,26 @@ function App() {
             </div>
 
             <div className="mt-4 sm:mt-5">
-                <Legend />
+                <Legend
+                    activeContinent={activeContinent}
+                    onSelectContinent={setActiveContinent}
+                    onClearContinent={() => setActiveContinent(null)}
+                />
+            </div>
+
+            <div className="mt-4 sm:mt-5">
+                <CountryControls
+                    searchQuery={searchQuery}
+                    onSearchQueryChange={setSearchQuery}
+                    sortKey={sortKey}
+                    sortDirection={sortDirection}
+                    onSortKeyChange={setSortKey}
+                    onSortDirectionChange={setSortDirection}
+                />
             </div>
 
             <div className="mt-8 sm:mt-10">
-                <CountryGrid countries={state.data} />
+                <CountryGrid results={filteredCountries} allCount={countries.length} />
             </div>
         </main>
     )

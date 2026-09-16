@@ -10,7 +10,6 @@ export function CountryCard({ country }: CountryCardProps) {
 
     return (
         <article
-            data-continent={country.continent}
             className="group flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface shadow-card transition-transform duration-200 ease-snappy hover:-translate-y-1 hover:shadow-lg"
         >
             <div className="relative aspect-video w-full overflow-hidden">
