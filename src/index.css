@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Static tokens: same value in both themes ---- */
+@theme {
+    /* brand scale */
+    --color-brand-50:  oklch(0.97 0.02 250);
+    --color-brand-100: oklch(0.93 0.05 250);
+    --color-brand-300: oklch(0.80 0.12 250);
+    --color-brand-500: oklch(0.62 0.19 250);
+    --color-brand-600: oklch(0.55 0.19 250);
+    --color-brand-700: oklch(0.47 0.17 250);
+    --color-brand-900: oklch(0.32 0.11 250);
+
+    /* fonts */
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, "JetBrains Mono", monospace;
+
+    /* radii, spacing, shadows */
+    --radius-card: 0.875rem;
+    --spacing-gutter: 1.25rem;
+    --shadow-card: 0 1px 2px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.08);
+
+    /* custom breakpoint + easing */
+    --breakpoint-3xl: 120rem;
+    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ---- Themed tokens: raw variables that flip with the .dark class ---- */
+:root {
+    --bg: oklch(0.99 0 0);
+    --fg: oklch(0.21 0.01 250);
+    --surface: oklch(1 0 0);
+    --border: oklch(0.90 0.005 250);
+    --muted-fg: oklch(0.55 0.01 250);
+}
+
+.dark {
+    --bg: oklch(0.18 0.01 250);
+    --fg: oklch(0.96 0 0);
+    --surface: oklch(0.23 0.012 250);
+    --border: oklch(0.32 0.012 250);
+    --muted-fg: oklch(0.70 0.01 250);
+}
+
+/* @theme inline re-exports those as utilities without freezing their value,
+   so bg-surface / text-fg / border-border follow the active theme. */
+@theme inline {
+    --color-bg: var(--bg);
+    --color-fg: var(--fg);
+    --color-surface: var(--surface);
+    --color-border: var(--border);
+    --color-muted-fg: var(--muted-fg);
+}
+
+@layer base {
+    html {
+        color-scheme: light;
+    }
+    html.dark {
+        color-scheme: dark;
+    }
+    body {
+        @apply bg-bg text-fg font-sans antialiased;
+    }
+}
