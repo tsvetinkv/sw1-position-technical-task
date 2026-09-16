@@ -7,8 +7,8 @@
     <title>sw1-position-technical-task</title>
       <script>
           (() => {
-              const s = localStorage.getItem('theme')
-              const dark = s === 'dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches)
+              const stored = localStorage.getItem('theme')
+              const dark = stored === 'dark' || (!stored && matchMedia('(prefers-color-scheme: dark)').matches)
               document.documentElement.classList.toggle('dark', dark)
           })()
       </script>

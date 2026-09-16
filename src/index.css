@@ -44,8 +44,6 @@
     --muted-fg: oklch(0.70 0.01 250);
 }
 
-/* @theme inline re-exports those as utilities without freezing their value,
-   so bg-surface / text-fg / border-border follow the active theme. */
 @theme inline {
     --color-bg: var(--bg);
     --color-fg: var(--fg);
@@ -63,5 +61,11 @@
     }
     body {
         @apply bg-bg text-fg font-sans antialiased;
+        background-image: radial-gradient(
+                ellipse 80% 60% at 50% -10%,
+                color-mix(in oklch, var(--color-brand-500) 8%, transparent),
+                transparent 60%
+        );
+        background-attachment: fixed;
     }
 }

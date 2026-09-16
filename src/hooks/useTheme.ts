@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Theme } from '@/types/theme'
 
-const STORAGE_KEY = 'theme'
-
 function getInitialTheme(): Theme {
-    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
+    const stored = localStorage.getItem('theme')
     if (stored === 'light' || stored === 'dark') return stored
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -14,12 +12,10 @@ export function useTheme() {
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', theme === 'dark')
-        localStorage.setItem(STORAGE_KEY, theme)
+        localStorage.setItem('theme', theme)
     }, [theme])
 
-    const toggle = useCallback(() => {
-        setTheme(t => (t === 'dark' ? 'light' : 'dark'))
-    }, [])
+    const toggleTheme = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'))
 
-    return { theme, setTheme, toggle }
+    return { theme, toggleTheme }
 }
