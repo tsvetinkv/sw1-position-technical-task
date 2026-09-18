@@ -24,7 +24,7 @@ export function Legend({ activeContinent, onSelectContinent, onClearContinent }:
             aria-label="Filter countries by continent"
             className="flex flex-wrap items-center gap-2 rounded-full p-1"
         >
-            <span className="ml-2 mr-1 text-xs font-semibold uppercase tracking-wider text-muted-fg">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-muted-fg">
                 Continents:
             </span>
             <ul className="flex flex-wrap items-center gap-2 sm:gap-2.5">

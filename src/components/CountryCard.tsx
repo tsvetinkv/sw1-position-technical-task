@@ -29,7 +29,7 @@ export function CountryCard({ country }: CountryCardProps) {
                     <p className={`mt-1 text-sm ${theme.bodyText}`}>{country.shortInfo}</p>
                 </div>
 
-                <dl className="mt-auto grid grid-cols-2 gap-x-3 gap-y-2 border-t border-border pt-3 text-sm">
+                <dl className="mt-auto grid grid-cols-2 gap-x-3 gap-y-2 border-t border-fg/15 pt-3 text-sm">
                     <div>
                         <dt className={`text-xs uppercase tracking-wide ${theme.labelText}`}>Capital</dt>
                         <dd className={theme.bodyText}>{country.capital}</dd>

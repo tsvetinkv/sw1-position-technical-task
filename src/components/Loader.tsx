@@ -31,7 +31,7 @@ export function Loader({ durationMs = 1500 }: LoaderProps) {
                 className="h-2 w-64 overflow-hidden rounded-full bg-border"
             >
                 <div
-                    className="h-full rounded-full bg-white transition-all duration-100 dark:bg-brand-400"
+                    className="h-full rounded-full bg-fg transition-all duration-100"
                     style={{ width: `${progress}%` }}
                 />
             </div>
